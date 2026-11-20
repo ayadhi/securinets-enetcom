@@ -1,7 +1,47 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import events from '../data/events.json';
+
+const today = new Date().toISOString().slice(0, 10);
+const sorted = [...events].sort((a, b) => a.date.localeCompare(b.date));
+const upcoming = sorted.filter((e) => e.date >= today);
+const past = sorted.filter((e) => e.date < today).reverse();
 ---
 
-<Layout title="events">
-  <h1 class="py-12 text-4xl font-bold">events</h1>
+<Layout title="Events - Securinets ENET'COM">
+  <section class="py-16">
+    <h1 class="text-4xl font-bold">Ev<span class="text-brand-orange">ents</span></h1>
+
+    <h2 class="mt-10 text-xl font-semibold">Upcoming</h2>
+    <div class="mt-4 grid gap-6 md:grid-cols-2">
+      {upcoming.length === 0 && <p class="text-white/60">Ma famech event jey tawa, stay tuned.</p>}
+      {upcoming.map((e) => (
+        <article class="rounded-2xl border border-white/10 bg-card p-6">
+          <span class="rounded-full bg-brand-blue px-3 py-1 text-xs">{e.type}</span>
+          <h3 class="mt-3 text-xl font-semibold">{e.title}</h3>
+          <p class="mt-1 text-sm text-white/60">{e.date} · {e.time} · {e.location}</p>
+          <p class="mt-3 text-white/80">{e.description}</p>
+          {e.link && (
+            <a href={e.link} class="mt-4 inline-block rounded-full bg-brand-orange px-4 py-1.5 text-sm font-medium">
+              Register
+            </a>
+          )}
+        </article>
+      ))}
+    </div>
+
+    {past.length > 0 && (
+      <>
+        <h2 class="mt-12 text-xl font-semibold text-white/70">Past</h2>
+        <div class="mt-4 grid gap-4 md:grid-cols-2 opacity-70">
+          {past.map((e) => (
+            <article class="rounded-2xl border border-white/10 bg-card p-5">
+              <h3 class="font-semibold">{e.title}</h3>
+              <p class="text-sm text-white/60">{e.date} · {e.location}</p>
+            </article>
+          ))}
+        </div>
+      </>
+    )}
+  </section>
 </Layout>
