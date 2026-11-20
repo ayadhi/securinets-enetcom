@@ -1,0 +1,49 @@
+---
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/workshops', label: 'Workshops' },
+  { href: '/events', label: 'Events' },
+  { href: '/team', label: 'Team' },
+];
+const path = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 border-b border-white/10 bg-bg/80 backdrop-blur">
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+    <a href="/" class="flex items-center gap-2 font-bold">
+      <img src="/logo.png" alt="" class="h-8 w-8 object-contain" onerror="this.style.display='none'" />
+      <span>Securinets <span class="text-brand-orange">ENET'COM</span></span>
+    </a>
+
+    <ul class="hidden items-center gap-6 text-sm md:flex">
+      {links.map((l) => (
+        <li>
+          <a
+            href={l.href}
+            class:list={[
+              'transition hover:text-brand-orange',
+              path === l.href ? 'text-brand-orange' : 'text-white/70',
+            ]}
+          >
+            {l.label}
+          </a>
+        </li>
+      ))}
+      <li>
+        <a href="/join" class="rounded-full bg-brand-orange px-4 py-1.5 font-medium text-white hover:opacity-90">
+          Join the club
+        </a>
+      </li>
+    </ul>
+
+    <details class="relative md:hidden">
+      <summary class="cursor-pointer list-none text-2xl">☰</summary>
+      <ul class="absolute right-0 mt-2 w-48 space-y-2 rounded-xl border border-white/10 bg-card p-4 text-sm">
+        {links.map((l) => (
+          <li><a href={l.href} class="block">{l.label}</a></li>
+        ))}
+        <li><a href="/join" class="block text-brand-orange">Join the club</a></li>
+      </ul>
+    </details>
+  </nav>
+</header>

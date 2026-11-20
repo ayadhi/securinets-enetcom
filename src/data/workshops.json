@@ -1,0 +1,16 @@
+[
+  {
+    "title": "Intro to Web Security",
+    "date": "2026-12-05",
+    "speaker": "Ayadhi",
+    "level": "Beginner",
+    "description": "Les bases: HTTP, cookies, XSS w SQL injection."
+  },
+  {
+    "title": "Crypto 101",
+    "date": "2026-12-12",
+    "speaker": "A confirmer",
+    "level": "Beginner",
+    "description": "RSA, XOR w les erreurs classiques fil CTF."
+  }
+]

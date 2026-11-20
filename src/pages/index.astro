@@ -1,16 +1,13 @@
 ---
+import Layout from '../layouts/Layout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Securinets ENET'COM">
+  <section class="flex min-h-[70vh] flex-col items-center justify-center text-center">
+    <h1 class="text-5xl font-bold text-brand-orange">Securinets ENET'COM</h1>
+    <p class="mt-4 text-white/70">CTFs, workshops w kol chy fil cybersecurity.</p>
+    <a href="/join" class="mt-8 rounded-full bg-brand-orange px-6 py-3 font-semibold text-white hover:opacity-90">
+      Join the club
+    </a>
+  </section>
+</Layout>

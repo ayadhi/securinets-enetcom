@@ -1,0 +1,73 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Join the club - Securinets ENET'COM">
+  <section class="mx-auto max-w-xl py-16">
+    <h1 class="text-4xl font-bold">Join <span class="text-brand-orange">the club</span></h1>
+    <p class="mt-2 text-white/70">Remplis le formulaire w nraj3oulek.</p>
+
+    <form id="join-form" class="mt-8 space-y-4 rounded-2xl border border-white/10 bg-card p-6">
+      <input name="website" class="hidden" tabindex="-1" autocomplete="off" />
+
+      <label class="block text-sm">Nom complet
+        <input name="full_name" required class="mt-1 w-full rounded-lg border border-white/10 bg-bg px-3 py-2" />
+      </label>
+
+      <label class="block text-sm">Email
+        <input name="email" type="email" required class="mt-1 w-full rounded-lg border border-white/10 bg-bg px-3 py-2" />
+      </label>
+
+      <label class="block text-sm">Domaine
+        <select name="field" required class="mt-1 w-full rounded-lg border border-white/10 bg-bg px-3 py-2">
+          <option value="">Choisir...</option>
+          <option>Web</option>
+          <option>Crypto</option>
+          <option>Forensics</option>
+          <option>Reverse</option>
+          <option>Pwn</option>
+          <option>Je ne sais pas encore</option>
+        </select>
+      </label>
+
+      <label class="block text-sm">Message
+        <textarea name="message" rows="4" class="mt-1 w-full rounded-lg border border-white/10 bg-bg px-3 py-2"></textarea>
+      </label>
+
+      <button type="submit" class="w-full rounded-full bg-brand-orange px-6 py-3 font-semibold text-white hover:opacity-90">
+        Envoyer
+      </button>
+      <p id="status" class="text-center text-sm"></p>
+    </form>
+  </section>
+</Layout>
+
+<script>
+  import { supabase } from '../lib/supabase';
+
+  const form = document.getElementById('join-form') as HTMLFormElement;
+  const status = document.getElementById('status')!;
+  const button = form.querySelector('button')!;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
+
+    if (data.website) return; // honeypot anti-bot
+    delete data.website;
+
+    button.disabled = true;
+    status.textContent = 'Envoi...';
+
+    const { error } = await supabase.from('join_requests').insert(data);
+
+    if (error) {
+      console.error(error);
+      status.textContent = 'Erreur, 3awed 7awel.';
+    } else {
+      status.textContent = "Merci! Nrad 3lik behi.";
+      form.reset();
+    }
+    button.disabled = false;
+  });
+</script>
