@@ -10,7 +10,7 @@ const sorted = [...workshops].sort((a, b) => a.date.localeCompare(b.date));
     <h1 class="text-4xl font-bold">Work<span class="text-brand-orange">shops</span></h1>
     <div class="mt-8 grid gap-6 md:grid-cols-2">
       {sorted.map((w) => (
-        <article class="rounded-2xl border border-white/10 bg-card p-6">
+        <article class="card-glow gborder rounded-2xl bg-card p-6">
           <span class="rounded-full bg-brand-blue px-3 py-1 text-xs">{w.level}</span>
           <h2 class="mt-3 text-xl font-semibold">{w.title}</h2>
           <p class="mt-1 text-sm text-white/60">{w.date} · {w.speaker}</p>

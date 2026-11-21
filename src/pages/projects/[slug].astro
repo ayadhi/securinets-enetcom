@@ -1,0 +1,137 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import projects from '../../data/projects.json';
+
+export function getStaticPaths() {
+  return projects.map((p, i) => ({
+    params: { slug: p.slug },
+    props: { p, i, prev: projects[i - 1], next: projects[i + 1] },
+  }));
+}
+const { p, i, prev, next } = Astro.props;
+const num = String(i + 1).padStart(2, '0');
+const stats = [
+  ['Durée', p.duration], ['Charge', p.load], ['Domaine', p.domain], ['Format', p.format],
+];
+---
+
+<Layout title={`${p.name} - CyberDock`} description={`${p.name}: ${p.subtitle}`}>
+  <a href="/projects" class="cyber-text mt-10 inline-block text-sm text-white/60 hover:text-brand-orange">← CyberDock</a>
+
+  <!-- Header -->
+  <section class="cyber-card mt-4 rounded-3xl p-8 md:p-12">
+    <span class="hud tl"></span><span class="hud tr"></span><span class="hud bl"></span><span class="hud br"></span>
+    <p class="cyber-text text-sm text-brand-orange">FICHE PROJET {num} / {String(projects.length).padStart(2, '0')} · {p.tag}</p>
+    <h1 class="cyber-text cyber-title mt-3 text-5xl font-extrabold uppercase md:text-7xl">{p.name}</h1>
+    <p class="mt-3 text-xl text-white/80">{p.subtitle}</p>
+
+    <div class="cyber-text mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
+      {stats.map(([l, v]) => (
+        <div class="rounded-lg border border-brand-orange/40 bg-black/30 px-4 py-3">
+          <p class="text-[10px] tracking-widest text-white/50">{l.toUpperCase()}</p>
+          <p class="mt-1 font-bold text-brand-orange">{v}</p>
+        </div>
+      ))}
+    </div>
+    <p class="mt-6 text-white/70">Superviseur : <span class="font-semibold text-white">{p.supervisor}</span></p>
+  </section>
+
+  <!-- Contexte -->
+  <section class="reveal py-10">
+    <h2 class="cyber-text text-sm tracking-widest text-brand-orange">// CONTEXTE ET MISSION</h2>
+    <p class="mt-3 max-w-3xl text-lg leading-relaxed text-white/80">{p.context}</p>
+  </section>
+
+  <!-- Objectifs + Contraintes -->
+  <section class="reveal grid gap-6 pb-10 md:grid-cols-2">
+    <div class="rounded-2xl border border-white/10 bg-card p-6">
+      <h2 class="cyber-text text-sm tracking-widest text-brand-orange">// OBJECTIFS PÉDAGOGIQUES</h2>
+      <ul class="mt-4 space-y-3 text-white/80">
+        {p.objectives.map((o: string) => <li class="flex gap-3"><span class="text-brand-orange">▸</span><span>{o}</span></li>)}
+      </ul>
+    </div>
+    <div class="rounded-2xl border border-white/10 bg-card p-6">
+      <h2 class="cyber-text text-sm tracking-widest text-brand-orange">// CONTRAINTES ET LIMITES</h2>
+      <ul class="mt-4 space-y-3 text-white/80">
+        {p.constraints.map((o: string) => <li class="flex gap-3"><span class="text-brand-orange">▸</span><span>{o}</span></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- MVP -->
+  <section class="reveal pb-10">
+    <h2 class="cyber-text text-sm tracking-widest text-brand-orange">// FONCTIONNALITÉS OBLIGATOIRES · MVP</h2>
+    <div class="mt-4 grid gap-3">
+      {p.mvp.map((f: string, k: number) => (
+        <div class="proj-card flex items-start gap-4 rounded-xl border border-white/10 bg-card p-4">
+          <span class="cyber-text rounded-md bg-brand-orange/15 px-2.5 py-1 text-sm font-bold text-brand-orange">F{k + 1}</span>
+          <p class="text-white/85">{f}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Roadmap -->
+  <section class="reveal pb-10">
+    <h2 class="cyber-text text-sm tracking-widest text-brand-orange">// FEUILLE DE ROUTE · 4 SEMAINES</h2>
+    <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {p.roadmap.map((r: string, k: number) => (
+        <div class="relative rounded-xl border border-white/10 bg-card p-5">
+          <p class="cyber-text text-xs text-brand-orange">SEMAINE {k + 1}</p>
+          <p class="mt-2 font-semibold">{r}</p>
+          <div class="mt-4 h-1 rounded-full bg-white/10"><div class="h-1 rounded-full bg-brand-gradient" style={`width:${(k + 1) * 25}%`}></div></div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Livrables + Recette -->
+  <section class="reveal grid gap-6 pb-10 md:grid-cols-2">
+    <div class="rounded-2xl border border-white/10 bg-card p-6">
+      <h2 class="cyber-text text-sm tracking-widest text-brand-orange">// LIVRABLES ATTENDUS</h2>
+      <ul class="mt-4 space-y-3 text-white/80">
+        {p.deliverables.map((o: string) => <li class="flex gap-3"><span class="text-brand-orange">📦</span><span>{o}</span></li>)}
+      </ul>
+    </div>
+    <div class="rounded-2xl border border-white/10 bg-card p-6">
+      <h2 class="cyber-text text-sm tracking-widest text-brand-orange">// CRITÈRES DE RECETTE</h2>
+      <ul class="mt-4 space-y-3 text-white/80">
+        {p.acceptance.map((o: string) => <li class="flex gap-3"><span class="text-green-400">✔</span><span>{o}</span></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Bonus + Outils -->
+  <section class="reveal grid gap-6 pb-10 md:grid-cols-3">
+    <div class="rounded-2xl border border-brand-orange/40 bg-brand-orange/5 p-6 md:col-span-1">
+      <h2 class="cyber-text text-sm tracking-widest text-brand-orange">// POUR ALLER PLUS LOIN</h2>
+      <p class="mt-3 text-white/80">Bonus : {p.bonus}</p>
+    </div>
+    <div class="rounded-2xl border border-white/10 bg-card p-6">
+      <h2 class="cyber-text text-sm tracking-widest text-brand-orange">// OUTILS CONSEILLÉS</h2>
+      <p class="mt-3 text-white/80">{p.tools}</p>
+    </div>
+    <div class="rounded-2xl border border-white/10 bg-card p-6">
+      <h2 class="cyber-text text-sm tracking-widest text-brand-orange">// ENVIRONNEMENT DE TEST</h2>
+      <p class="mt-3 text-white/80">{p.env}</p>
+    </div>
+  </section>
+
+  <p class="cyber-text rounded-xl border border-white/10 bg-white/5 p-4 text-center text-xs text-white/60">
+    ⚠ Tests uniquement sur des systèmes et réseaux possédés ou explicitement autorisés.
+  </p>
+
+  <!-- Prev / Next -->
+  <nav class="mt-10 grid gap-4 pb-16 sm:grid-cols-2">
+    {prev ? (
+      <a href={`/projects/${prev.slug}`} class="proj-card rounded-xl border border-white/10 bg-card p-5">
+        <p class="cyber-text text-xs text-white/50">← PRÉCÉDENT</p><p class="mt-1 font-semibold">{prev.name}</p>
+      </a>
+    ) : <div></div>}
+    {next && (
+      <a href={`/projects/${next.slug}`} class="proj-card rounded-xl border border-white/10 bg-card p-5 text-right">
+        <p class="cyber-text text-xs text-white/50">SUIVANT →</p><p class="mt-1 font-semibold">{next.name}</p>
+      </a>
+    )}
+  </nav>
+</Layout>

@@ -1,20 +1,53 @@
 [
   {
-    "title": "Securinets TEK-UP Friendly CTF 2027",
-    "date": "2026-11-20",
-    "time": "20:00",
-    "location": "TEK-UP University",
+    "title": "Local CTF 1.0",
     "type": "CTF",
-    "description": "CTF Jeopardy format: web, crypto, forensics w reverse.",
-    "link": ""
+    "status": "past",
+    "date": "2026-10-17",
+    "time": "",
+    "location": "ENET'COM, Sfax",
+    "description": "Awel CTF local mta3 el club. Challenges 3la plusieurs domaines, kol catégorie fiha flags jdod.",
+    "categories": [
+      "Web",
+      "Crypto",
+      "Forensics",
+      "Reverse",
+      "Malware",
+      "OSINT"
+    ],
+    "link": "",
+    "poster": "/events/localctf.jpg"
   },
   {
-    "title": "Club Kickoff ENET'COM",
-    "date": "2026-12-01",
-    "time": "17:00",
-    "location": "ENET'COM",
-    "type": "Meetup",
-    "description": "Ta3arouf m3a el club w el plan mta3 el 3am.",
-    "link": ""
+    "title": "CyberDock",
+    "type": "Platform",
+    "status": "ongoing",
+    "date": "",
+    "time": "",
+    "location": "Online",
+    "description": "El plateforme live: +10 projets w +10 groupes. Secure. Defend. Innovate.",
+    "categories": [],
+    "link": "",
+    "poster": "/events/cyberdock.jpg"
+  },
+  {
+    "title": "University Alone",
+    "type": "CTF Beginner Friendly",
+    "status": "upcoming",
+    "date": "2026-12-05",
+    "time": "18:00 - 06:00",
+    "location": "ENET'COM, Sfax",
+    "description": "Two intruders. One university. Protège les serveurs du campus w ewqef el attaque. CTF beginner friendly 3la lil kamla.",
+    "categories": [
+      "Web Exploitation",
+      "Cryptography",
+      "Forensics",
+      "Reverse Engineering",
+      "OSINT",
+      "Pwn",
+      "AI Security"
+    ],
+    "link": "",
+    "poster": "/events/universityalone.jpg"
   }
 ]

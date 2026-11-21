@@ -7,19 +7,19 @@ import Layout from '../layouts/Layout.astro';
     <h1 class="text-4xl font-bold">Join <span class="text-brand-orange">the club</span></h1>
     <p class="mt-2 text-white/70">Remplis le formulaire w nraj3oulek.</p>
 
-    <form id="join-form" class="mt-8 space-y-4 rounded-2xl border border-white/10 bg-card p-6">
+    <form id="join-form" class="gborder mt-8 space-y-4 rounded-2xl bg-card p-6">
       <input name="website" class="hidden" tabindex="-1" autocomplete="off" />
 
       <label class="block text-sm">Nom complet
-        <input name="full_name" required class="mt-1 w-full rounded-lg border border-white/10 bg-bg px-3 py-2" />
+        <input name="full_name" required class="field" />
       </label>
 
       <label class="block text-sm">Email
-        <input name="email" type="email" required class="mt-1 w-full rounded-lg border border-white/10 bg-bg px-3 py-2" />
+        <input name="email" type="email" required class="field" />
       </label>
 
       <label class="block text-sm">Domaine
-        <select name="field" required class="mt-1 w-full rounded-lg border border-white/10 bg-bg px-3 py-2">
+        <select name="field" required class="field">
           <option value="">Choisir...</option>
           <option>Web</option>
           <option>Crypto</option>
@@ -31,7 +31,7 @@ import Layout from '../layouts/Layout.astro';
       </label>
 
       <label class="block text-sm">Message
-        <textarea name="message" rows="4" class="mt-1 w-full rounded-lg border border-white/10 bg-bg px-3 py-2"></textarea>
+        <textarea name="message" rows="4" class="field"></textarea>
       </label>
 
       <button type="submit" class="w-full rounded-full bg-brand-gradient px-6 py-3 font-semibold text-white hover:opacity-90">

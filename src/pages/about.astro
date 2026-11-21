@@ -1,0 +1,117 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const missionVision = [
+  {
+    icon: '🎯',
+    title: 'Notre mission',
+    text: "Promouvoir la culture de la cybersécurité, sensibiliser aux menaces numériques et former une nouvelle génération de passionnés capables de comprendre, anticiper et relever les défis du monde numérique.",
+  },
+  {
+    icon: '🔭',
+    title: 'Notre vision',
+    text: "Construire une communauté dynamique où la curiosité devient une compétence, où le partage devient une force et où chaque étudiant trouve l'opportunité de développer son potentiel dans le domaine de la cybersécurité.",
+  },
+];
+
+const whatWeDo = [
+  { icon: '🛠️', title: 'Workshops & Formations', text: 'Développer des compétences techniques à travers des sessions pratiques.' },
+  { icon: '🚩', title: 'CTF Competitions', text: 'Mettre les connaissances à l\'épreuve à travers des challenges de cybersécurité.' },
+  { icon: '🎤', title: 'Conferences & Events', text: 'Partager les connaissances et découvrir les dernières tendances technologiques.' },
+  { icon: '🤝', title: 'Community & Collaboration', text: "Encourager l'entraide, le partage d'expérience et le travail en équipe." },
+];
+
+const values = [
+  { icon: '🔐', title: 'Security First' },
+  { icon: '🧠', title: 'Continuous Learning' },
+  { icon: '🤝', title: 'Teamwork' },
+  { icon: '🚀', title: 'Innovation' },
+];
+---
+
+<Layout
+  title="À propos - Securinets ENET'COM"
+  description="Qui sommes-nous ? Securinets ENET'COM, la communauté étudiante de cybersécurité de l'ENET'COM Sfax."
+>
+  <!-- 1. Hero -->
+  <section class="flex min-h-[60vh] flex-col items-center justify-center text-center">
+    <img
+      src="/securinets-logo.png"
+      alt="Securinets"
+      class="animate-float h-40 w-auto object-contain drop-shadow-[0_0_25px_rgba(120,150,255,0.45)]"
+    />
+    <h1 class="animate-fade-up mt-6 max-w-3xl text-4xl font-bold md:text-6xl">
+      Securing Tomorrow, <span class="text-brand-gradient">One Skill at a Time</span>
+    </h1>
+    <p class="cursor animate-fade-up mt-4 text-white/70" style="animation-delay:.2s">
+      Learn. Explore. Secure. Repeat.
+    </p>
+  </section>
+
+  <!-- 2. Who we are -->
+  <section class="reveal py-16">
+    <h2 class="text-3xl font-bold">Qui <span class="text-brand-orange">sommes-nous</span> ?</h2>
+    <div class="mt-6 max-w-3xl space-y-4 text-white/75">
+      <p>
+        Securinets ENET'Com est une communauté étudiante passionnée par la cybersécurité,
+        rassemblant des étudiants de l'École Nationale d'Électronique et des Télécommunications
+        de Sfax autour d'un objectif commun : apprendre, partager et innover dans le monde de
+        la sécurité informatique.
+      </p>
+      <p>
+        Nous croyons que la cybersécurité ne se limite pas à la théorie. C'est pourquoi nous
+        encourageons l'apprentissage pratique, l'exploration des nouvelles technologies et le
+        développement des compétences à travers des expériences collaboratives.
+      </p>
+    </div>
+  </section>
+
+  <!-- 3. Mission & Vision -->
+  <section class="reveal py-8">
+    <div class="grid gap-6 md:grid-cols-2">
+      {missionVision.map((c) => (
+        <article class="card-glow rounded-2xl border border-white/10 bg-card p-8">
+          <div class="text-4xl">{c.icon}</div>
+          <h3 class="mt-4 text-2xl font-semibold">{c.title}</h3>
+          <p class="mt-3 text-white/75">{c.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- 4. What we do -->
+  <section class="reveal py-16">
+    <h2 class="text-3xl font-bold">Que <span class="text-brand-orange">faisons-nous</span> ?</h2>
+    <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {whatWeDo.map((w) => (
+        <article class="card-glow rounded-2xl border border-white/10 bg-card p-6">
+          <div class="text-3xl">{w.icon}</div>
+          <h3 class="mt-3 font-semibold">{w.title}</h3>
+          <p class="mt-2 text-sm text-white/70">{w.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Core values -->
+  <section class="reveal py-8">
+    <h2 class="text-3xl font-bold">Our core <span class="text-brand-orange">values</span></h2>
+    <div class="mt-6 grid grid-cols-2 gap-5 lg:grid-cols-4">
+      {values.map((v) => (
+        <article class="card-glow rounded-2xl border border-white/10 bg-card p-6 text-center">
+          <div class="text-4xl">{v.icon}</div>
+          <h3 class="mt-3 font-semibold">{v.title}</h3>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- 5. Join -->
+  <section class="reveal py-20 text-center">
+    <h2 class="text-3xl font-bold md:text-4xl">Join our <span class="text-brand-gradient">community</span></h2>
+    <p class="mt-3 text-white/70">Rejoins le club w commenci tet3alem m3ana.</p>
+    <a href="/join" class="mt-6 inline-block rounded-full bg-brand-gradient px-8 py-3 font-semibold text-white hover:opacity-90">
+      Join the club
+    </a>
+  </section>
+</Layout>

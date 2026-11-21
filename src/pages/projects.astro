@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+import projects from '../data/projects.json';
+---
+
+<Layout title="CyberDock - Securinets ENET'COM" description="CyberDock: les projets cybersécurité des groupes du club.">
+  <section class="py-16 text-center">
+    <p class="cyber-text animate-fade-up text-sm text-brand-orange">// SECURINETS ENET'COM PRESENTS</p>
+    <h1 class="cyber-text cyber-title animate-fade-up mt-3 text-5xl font-extrabold uppercase md:text-7xl" style="animation-delay:.1s">
+      Cyber<span class="text-brand-orange">Dock</span>
+    </h1>
+    <p class="cyber-text animate-fade-up mt-4 text-white/70" style="animation-delay:.2s">Secure. Defend. Innovate.</p>
+    <div class="cyber-text mx-auto mt-8 grid max-w-sm grid-cols-2 gap-3">
+      <div class="rounded-lg border border-brand-orange/40 bg-card py-3"><p class="text-3xl font-bold text-brand-orange">{projects.length}</p><p class="text-xs text-white/60">PROJECTS</p></div>
+      <div class="rounded-lg border border-brand-orange/40 bg-card py-3"><p class="text-3xl font-bold text-brand-orange">4</p><p class="text-xs text-white/60">WEEKS</p></div>
+    </div>
+  </section>
+
+  <section class="reveal pb-16">
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {projects.map((p, i) => (
+        <a href={`/projects/${p.slug}`} class="proj-card group relative block overflow-hidden rounded-2xl border border-white/10 bg-card p-6">
+          <span class="cyber-text absolute right-4 top-3 text-5xl font-extrabold text-white/5">{String(i + 1).padStart(2, '0')}</span>
+          <p class="cyber-text text-xs text-brand-orange">&gt; project_{String(i + 1).padStart(2, '0')}.exe</p>
+          <h3 class="cyber-text mt-3 text-2xl font-bold">{p.name}</h3>
+          <p class="mt-1 text-sm text-white/65">{p.subtitle}</p>
+          <div class="mt-4 flex flex-wrap gap-2 text-[11px]">
+            <span class="rounded-full border border-white/15 px-2.5 py-0.5 text-white/70">{p.domain}</span>
+            <span class="rounded-full border border-white/15 px-2.5 py-0.5 text-white/70">{p.load}</span>
+          </div>
+          <div class="mt-5 flex items-center justify-between border-t border-white/10 pt-4 text-sm">
+            <span><span class="text-white/50">Superviseur</span> <span class="font-medium">{p.supervisor}</span></span>
+            <span class="text-brand-orange transition group-hover:translate-x-1">→</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>

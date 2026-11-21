@@ -1,25 +1,130 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import team from '../data/team.json';
+
+const members = team.map((m, i) => ({ ...m, i }));
+const groups = [...new Set(members.map((m) => m.group))];
+const initials = (name: string) =>
+  name.split(' ').map((p) => p[0]).join('').slice(0, 2).toUpperCase();
 ---
 
-<Layout title="Team - Securinets ENET'COM">
-  <section class="py-16">
-    <h1 class="text-4xl font-bold">Our <span class="text-brand-orange">team</span></h1>
-    <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {team.map((m) => (
-        <article class="rounded-2xl border border-white/10 bg-card p-6 text-center">
-          <div class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-brand-blue text-2xl font-bold">
-            {m.name.split(' ').map((p) => p[0]).join('').slice(0, 2)}
-          </div>
-          <h2 class="mt-4 text-lg font-semibold">{m.name}</h2>
-          <p class="text-sm text-brand-orange">{m.role}</p>
-          <div class="mt-3 flex justify-center gap-4 text-sm text-white/60">
-            {m.github && <a href={`https://github.com/${m.github}`} class="hover:text-white">GitHub</a>}
-            {m.linkedin && <a href={m.linkedin} class="hover:text-white">LinkedIn</a>}
-          </div>
-        </article>
-      ))}
-    </div>
+<Layout title="Team - Securinets ENET'COM" description="Les membres du club Securinets ENET'COM.">
+  <section class="py-16 text-center">
+    <h1 class="animate-fade-up text-4xl font-bold md:text-5xl">
+      Meet the <span class="text-brand-gradient">team</span>
+    </h1>
+    <p class="animate-fade-up mx-auto mt-4 max-w-xl text-white/70" style="animation-delay:.15s">
+      Click 3la ay wa7ed bech tchouf el infos mte3ou w liens.
+    </p>
   </section>
+
+  {groups.map((g) => (
+    <section class="reveal pb-12">
+      <h2 class="mb-6 text-xl font-semibold text-white/80">
+        <span class="text-brand-orange">/</span> {g}
+      </h2>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {members.filter((m) => m.group === g).map((m) => (
+          <button
+            type="button"
+            data-i={m.i}
+            class="member card-glow cursor-pointer rounded-2xl border border-white/10 bg-card p-6 text-center"
+          >
+            <div class="relative mx-auto h-28 w-28">
+              <div class="flex h-28 w-28 items-center justify-center rounded-full bg-brand-gradient text-3xl font-bold">
+                {initials(m.name)}
+              </div>
+              {m.photo && (
+                <img src={m.photo} alt={m.name} loading="lazy" onerror="this.remove()"
+                  class="absolute inset-0 h-28 w-28 rounded-full object-cover object-top ring-2 ring-brand-orange/60" />
+              )}
+            </div>
+            <h3 class="mt-4 text-lg font-semibold">{m.name}</h3>
+            <p class="text-sm text-brand-orange">{m.role}</p>
+            <p class="mt-3 text-xs text-white/40">Voir le profil →</p>
+          </button>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <section class="reveal py-16 text-center">
+    <h2 class="text-2xl font-bold">T7eb tkoun <span class="text-brand-gradient">men el team</span>?</h2>
+    <a href="/join" class="mt-5 inline-block rounded-full bg-brand-gradient px-8 py-3 font-semibold text-white hover:opacity-90">Join the club</a>
+  </section>
+
+  <!-- Modal -->
+  <dialog id="member-dialog" class="m-auto w-[min(92vw,30rem)] rounded-3xl border border-white/10 bg-card p-0 text-white backdrop:bg-black/70 backdrop:backdrop-blur-sm">
+    <div class="relative p-8 text-center">
+      <button id="dlg-close" type="button" aria-label="Fermer" class="absolute right-4 top-4 text-2xl text-white/60 hover:text-white">×</button>
+      <div class="relative mx-auto h-36 w-36">
+        <div id="dlg-initials" class="flex h-36 w-36 items-center justify-center rounded-full bg-brand-gradient text-4xl font-bold"></div>
+        <img id="dlg-photo" alt="" class="absolute inset-0 hidden h-36 w-36 rounded-full object-cover object-top ring-2 ring-brand-orange/70" />
+      </div>
+      <h2 id="dlg-name" class="mt-5 text-2xl font-bold"></h2>
+      <p id="dlg-role" class="text-brand-orange"></p>
+      <span id="dlg-group" class="mt-2 inline-block rounded-full bg-brand-blue px-3 py-1 text-xs"></span>
+      <p id="dlg-bio" class="mt-5 text-sm leading-relaxed text-white/75"></p>
+      <div id="dlg-links" class="mt-6 flex flex-wrap justify-center gap-3"></div>
+    </div>
+  </dialog>
+
+  <script id="team-data" type="application/json" set:html={JSON.stringify(members)} />
+
+  <script>
+    const data = JSON.parse(document.getElementById('team-data')!.textContent || '[]');
+    const dlg = document.getElementById('member-dialog') as HTMLDialogElement;
+    const $ = (id: string) => document.getElementById(id)!;
+    const initials = (n: string) => n.split(' ').map((p) => p[0]).join('').slice(0, 2).toUpperCase();
+
+    function open(i: number) {
+      const m = data[i];
+      $('dlg-initials').textContent = initials(m.name);
+      const img = $('dlg-photo') as HTMLImageElement;
+      img.classList.add('hidden');
+      if (m.photo) {
+        img.onload = () => img.classList.remove('hidden');
+        img.onerror = () => img.classList.add('hidden');
+        img.src = m.photo;
+      }
+      $('dlg-name').textContent = m.name;
+      $('dlg-role').textContent = m.role;
+      $('dlg-group').textContent = m.group;
+      $('dlg-bio').textContent = m.bio || '';
+      $('dlg-bio').classList.toggle('hidden', !m.bio);
+
+      const items: [string, string][] = [
+        ['GitHub', m.github ? `https://github.com/${m.github}` : ''],
+        ['LinkedIn', m.linkedin],
+        ['Instagram', m.instagram],
+        ['Facebook', m.facebook],
+        ['Email', m.email ? `mailto:${m.email}` : ''],
+      ];
+      const box = $('dlg-links');
+      box.replaceChildren();
+      const filled = items.filter(([, href]) => href);
+      filled.forEach(([label, href]) => {
+        const a = document.createElement('a');
+        a.href = href;
+        a.textContent = label;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.className = 'rounded-full border border-white/20 px-4 py-2 text-sm hover:border-brand-orange hover:text-brand-orange transition';
+        box.appendChild(a);
+      });
+      if (!filled.length) {
+        const p = document.createElement('p');
+        p.className = 'text-sm text-white/40';
+        p.textContent = 'Les liens jayin bientôt.';
+        box.appendChild(p);
+      }
+      dlg.showModal();
+    }
+
+    document.querySelectorAll<HTMLElement>('.member').forEach((el) =>
+      el.addEventListener('click', () => open(Number(el.dataset.i)))
+    );
+    $('dlg-close').addEventListener('click', () => dlg.close());
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+  </script>
 </Layout>

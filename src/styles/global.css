@@ -29,3 +29,145 @@
 html {
   scroll-behavior: smooth;
 }
+
+/* ---------- Polish ---------- */
+@utility bg-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 40%, transparent 100%);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.animate-float { animation: float 5s ease-in-out infinite; }
+.animate-fade-up { animation: fade-up 0.7s ease-out both; }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+.cursor::after { content: "_"; animation: blink 1s steps(1) infinite; color: #f0501e; }
+
+.card-glow { position: relative; transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+.card-glow:hover {
+  transform: translateY(-4px);
+  border-color: rgba(240, 80, 30, 0.6);
+  box-shadow: 0 10px 40px -10px rgba(240, 80, 30, 0.35), 0 10px 40px -10px rgba(27, 58, 138, 0.5);
+}
+
+::selection { background: #f0501e; color: white; }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #070b1a; }
+::-webkit-scrollbar-thumb { background: linear-gradient(#f0501e, #1b3a8a); border-radius: 10px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float, .animate-fade-up, .cursor::after { animation: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ---------- Winter / snow card ---------- */
+.snow-card {
+  background:
+    radial-gradient(60% 50% at 12% 105%, rgba(255, 196, 94, 0.22), transparent 70%),
+    linear-gradient(180deg, #0a1535 0%, #0b1f4a 55%, #0d2a5c 100%);
+  border-color: rgba(190, 220, 255, 0.25);
+  box-shadow: 0 0 80px -20px rgba(120, 170, 255, 0.35), inset 0 0 60px rgba(180, 210, 255, 0.05);
+}
+.snow-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 70px;
+  background:
+    radial-gradient(40px 28px at 8% 0, #fff 60%, transparent 62%),
+    radial-gradient(60px 36px at 22% 0, #fff 60%, transparent 62%),
+    radial-gradient(44px 30px at 38% 0, #fff 60%, transparent 62%),
+    radial-gradient(70px 40px at 55% 0, #fff 60%, transparent 62%),
+    radial-gradient(46px 30px at 72% 0, #fff 60%, transparent 62%),
+    radial-gradient(64px 36px at 90% 0, #fff 60%, transparent 62%);
+  filter: drop-shadow(0 6px 10px rgba(150, 190, 255, 0.35));
+  pointer-events: none;
+  z-index: 2;
+}
+.snow-card canvas.snow { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+.snow-card .warm { color: #ffc65e; text-shadow: 0 0 24px rgba(255, 198, 94, 0.55); }
+.snow-card .frost {
+  background-image: linear-gradient(180deg, #ffffff, #b9d4ff);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+/* ---------- Inputs / forms ---------- */
+.field {
+  width: 100%;
+  margin-top: .25rem;
+  border-radius: .75rem;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(7,11,26,.7);
+  padding: .65rem .9rem;
+  transition: border-color .2s, box-shadow .2s;
+}
+.field:focus {
+  outline: none;
+  border-color: #f0501e;
+  box-shadow: 0 0 0 3px rgba(240,80,30,.2), 0 0 30px -8px rgba(27,58,138,.8);
+}
+
+/* ---------- Gradient border card ---------- */
+.gborder { position: relative; }
+.gborder::before {
+  content: ""; position: absolute; inset: 0; padding: 1px; border-radius: inherit;
+  background: linear-gradient(135deg, rgba(240,80,30,.7), rgba(255,255,255,.06) 40%, rgba(58,99,201,.7));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ---------- Navbar links ---------- */
+header nav ul a { position: relative; }
+header nav ul li:not(:last-child) a::after {
+  content: ""; position: absolute; left: 0; bottom: -4px; height: 2px; width: 0;
+  background: linear-gradient(90deg, #f0501e, #3a63c9); transition: width .25s;
+}
+header nav ul li:not(:last-child) a:hover::after { width: 100%; }
+
+/* ---------- CyberDock HUD ---------- */
+@keyframes scan { from { transform: translateY(-100%); } to { transform: translateY(100%); } }
+.cyber-card {
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, #1c0a04 0%, #2b0f05 50%, #0b1228 100%);
+  border: 1px solid rgba(240, 80, 30, .55);
+  box-shadow: 0 0 70px -18px rgba(240, 80, 30, .55), inset 0 0 80px rgba(240, 80, 30, .06);
+}
+.cyber-card::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 4px);
+}
+.cyber-card::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 40%; pointer-events: none; z-index: 1;
+  background: linear-gradient(180deg, transparent, rgba(240, 80, 30, .12), transparent);
+  animation: scan 5s linear infinite;
+}
+.cyber-card > * { position: relative; z-index: 2; }
+.hud { position: absolute; width: 22px; height: 22px; border: 2px solid #f0501e; z-index: 3; }
+.hud.tl { top: 14px; left: 14px; border-right: 0; border-bottom: 0; }
+.hud.tr { top: 14px; right: 14px; border-left: 0; border-bottom: 0; }
+.hud.bl { bottom: 14px; left: 14px; border-right: 0; border-top: 0; }
+.hud.br { bottom: 14px; right: 14px; border-left: 0; border-top: 0; }
+.cyber-text { font-family: ui-monospace, "JetBrains Mono", "Fira Code", monospace; letter-spacing: .04em; }
+.cyber-title { text-shadow: 0 0 28px rgba(240, 80, 30, .6); }
+.proj-card { transition: transform .25s, border-color .25s, box-shadow .25s; }
+.proj-card:hover {
+  transform: translateY(-4px); border-color: rgba(240, 80, 30, .8);
+  box-shadow: 0 0 40px -10px rgba(240, 80, 30, .6);
+}
+@media (prefers-reduced-motion: reduce) { .cyber-card::after { animation: none; } }
